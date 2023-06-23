@@ -5,6 +5,11 @@ from time import sleep
 from utils import clean_dir
 from dotenv import load_dotenv
 from constants import DEFAULT_DIR, DEFAULT_MODEL, DEFAULT_MAX_TOKENS
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
 
 
 def generate_response(system_prompt, user_prompt, *args):
