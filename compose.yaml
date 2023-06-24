@@ -1,0 +1,20 @@
+# A Docker Compose file for running the app in a container
+# Run with `docker-compose run --rm dev`
+
+# Requirements:
+# - use the dockerfile at .devcontainer/dockerfile to build and run a service called 'dev'
+# - mount the current directory as /app
+# - do not expose any ports
+# - drop the user into a bash shell when the container starts
+
+# Solution:
+
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: .devcontainer/dockerfile
+    volumes:
+      - .:/app
+    entrypoint: bash
+    user: app

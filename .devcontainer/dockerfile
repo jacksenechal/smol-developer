@@ -3,14 +3,21 @@
 # Defines the base image to use for your Docker image. Here, it is the slim-buster version of the official Python 3.9 img
 FROM python:3.9-slim-buster
 
+# Create a new user called "app"
+RUN adduser --system --group --no-create-home --disabled-password --gecos "" app
+
 # Sets the working directory in the Docker container. Any command that follows in the Dockerfile will be run in this directory
 WORKDIR /app
 
-# Copies the requirements.txt and .env file from your project to the working directory in the Docker img
-COPY requirements.txt .env* ./
+# Adjust directory ownership and permissions
+RUN chown -R app:app /app
+
+# Switch to the "app" user
+USER app
+
+# Copy application files from your host to your Docker image file system
+COPY . /app
 
 # Runs pip install command in your Docker image to install Python dependencies listed in your requirements.txt file
+ENV PIP_TARGET=/app
 RUN pip install -r requirements.txt
-
-# Copies everything else in your project (denoted by '.') to the working directory in the Docker img
-COPY . .
