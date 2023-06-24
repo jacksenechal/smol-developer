@@ -4,7 +4,7 @@
 FROM python:3.9-slim-buster
 
 # Create a new user called "app"
-RUN adduser --system --group --no-create-home --disabled-password --gecos "" app
+RUN adduser --system --group --no-create-home --disabled-password --gecos "" --uid 1000 app
 
 # Sets the working directory in the Docker container. Any command that follows in the Dockerfile will be run in this directory
 WORKDIR /app
