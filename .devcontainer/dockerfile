@@ -9,15 +9,14 @@ RUN adduser --system --group --no-create-home --disabled-password --gecos "" app
 # Sets the working directory in the Docker container. Any command that follows in the Dockerfile will be run in this directory
 WORKDIR /app
 
+# Copy application files from your host to your Docker image file system
+COPY . /app
+
+# Runs pip install command in your Docker image to install Python dependencies listed in your requirements.txt file
+RUN pip install -r requirements.txt
+
 # Adjust directory ownership and permissions
 RUN chown -R app:app /app
 
 # Switch to the "app" user
 USER app
-
-# Copy application files from your host to your Docker image file system
-COPY . /app
-
-# Runs pip install command in your Docker image to install Python dependencies listed in your requirements.txt file
-ENV PIP_TARGET=/app
-RUN pip install -r requirements.txt
